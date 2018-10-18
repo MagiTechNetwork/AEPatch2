@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        maven {
+            name = 'sponge'
+            url = 'https://repo.spongepowered.org/maven'
+        }
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'org.spongepowered.plugin' version '0.8.1'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+
+group = pluginGroup
+version = pluginVersion
+
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'org.spongepowered:spongeapi:7.1.0-SNAPSHOT'
+    compile 'org.spongepowered:mixin:0.7.11-SNAPSHOT'
+    compile ('com.github.AppliedEnergistics:Applied-Energistics-2:rv6-1.12-SNAPSHOT') {
+        transitive = false
+    }
+}
+
+minecraft {
+    forgeVersion = '2770'
+    mappings = 'stable_39'
+    makeObfSourceJar = false
+}
+
+sourceSets {
+    main {
+        ext.refMap = "mixins.aepatch.refmap.json"
+    }
+}
+
+jar {
+    manifest.attributes(
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
+            'MixinConfigs': 'mixins.aepatch.json',
+            'FMLCorePluginContainsFMLMod': 'true',
+    )
+}
+
+sponge.plugin.id = pluginId

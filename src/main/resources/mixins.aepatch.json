@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.7.10",
+  "package": "com.magitechserver.aepatch2.mixin",
+  "plugin": "com.magitechserver.aepatch2.AEPMixinConfigPlugin",
+  "refmap": "mixins.aepatch.refmap.json",
+  "target": "@env(DEFAULT)",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "MixinPlatform"
+  ]
+}
